@@ -1,0 +1,17 @@
+{
+  "name": "deployment",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^1.2.11",
+    "jimp": "^0.22.8"
+  },
+  "devDependencies": {},
+  "description": ""
+}
