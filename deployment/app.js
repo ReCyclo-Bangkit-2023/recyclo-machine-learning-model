@@ -8,6 +8,13 @@ const tfnode = require('@tensorflow/tfjs-node');
 // Include fs module
 const fs = require('fs');
 
+var priceDict = {
+  0 : 1500,
+  1 : 12000,
+  2 : 2000,
+  3 : 3000
+};
+
 
 async function loadModel(path) {
   // Get file path
@@ -43,7 +50,7 @@ async function predict() {
   const modelFeature = await loadModel('./deployment/object-features-model/model.json');
 
   // load image
-  const img = await loadImage('./deployment/plastic8.jpg');
+  const img = await loadImage('./deployment/img-test/plastic8.jpg');
 
   // Doing prediction
   const predictClass =  modelClass.predict(img);
@@ -51,11 +58,16 @@ async function predict() {
 
   // Print prediction result
   // Prediction result return array type data
-  console.log(predictClass.arraySync());
+  console.log(predictClass.argMax(1).arraySync());
   console.log(predictFfeature.arraySync());
+
+  // Do price prediction from object class and feature
+  objectClass = predictClass.argMax(1).arraySync()[0];
+  objectFeature = predictFfeature.arraySync()[0][0];
+  priceResult = priceDict[objectClass] * objectFeature;
+  console.log(priceResult);
+
+  return priceResult;
 }
 
-
 predict();
-
-
